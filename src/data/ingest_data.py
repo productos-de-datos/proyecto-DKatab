@@ -13,8 +13,13 @@ def ingest_data():
     descarga debe realizarse usando únicamente funciones de Python.
 
     """
+    # De la URL datasets/precio_bolsa_nacional/xls obtenemos la información de 27 archivos en excel con el cual 
+    # realizaremos la ingesta de datos. Esta información se depositará en la carpta landing que creamos en el 
+    # anterior.
+    
     import github
     import requests
+    
     g = github.Github()
     repo = g.get_repo('jdvelasq/datalabs')
     contents = repo.get_contents('datasets/precio_bolsa_nacional/xls')
@@ -22,7 +27,7 @@ def ingest_data():
     for contentFile in contents:
         url_descarga = contentFile.download_url
         nombre_archivo = url_descarga.rsplit('/', 1)[1]
-        with open('data_lake/landing/' + nombre_archivo, 'wb') as f:
+        with open('../../data_lake/landing/' + nombre_archivo, 'wb') as f:
             f.write(requests.get(url_descarga).content)
 
     #raise NotImplementedError("Implementar esta función")

@@ -12,10 +12,22 @@ def make_features():
     analizar y determinar las variables explicativas del modelo.
 
     """
-    raise NotImplementedError("Implementar esta función")
+    import pandas as pd
+
+    df = pd.read_csv('../../data_lake/business/precios-diarios.csv')
+    df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d')
+    df["Diferencia_precio"] = df["Precio"] - df["Precio"].shift(1)
+    df["Dia_semana"] = df["Fecha"].dt.dayofweek
+    df["Dia_mes"] = df["Fecha"].dt.day
+    df["Precio_ayer"] = df["Precio"].shift(1)
+
+    df.to_csv('../../data_lake/business/features/precios-diarios.csv', encoding='utf-8', index=False)
+
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+    make_features()

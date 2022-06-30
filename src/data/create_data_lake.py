@@ -20,6 +20,17 @@ def create_data_lake():
     ```
 
     """
+    # Se crea el data lake con la siguiente estructura en la raíz del proyecto :
+    #   \___ data_lake/
+    #    |___ landing/
+    #    |___ raw/
+    #    |___ cleansed/
+    #    \___ business/
+    #         |___ reports/
+    #         |    |___ figures/
+    #         |___ features/
+    #         |___ forecasts/
+
     from os import mkdir
 
     mkdir("data_lake")
