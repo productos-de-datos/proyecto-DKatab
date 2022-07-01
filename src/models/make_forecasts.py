@@ -1,47 +1,58 @@
 def make_forecasts():
     """Construya los pronosticos con el modelo entrenado final.
-
     Cree el archivo data_lake/business/forecasts/precios-diarios.csv. Este
     archivo contiene tres columnas:
-
     * La fecha.
-
     * El precio promedio real de la electricidad.
-
     * El pronóstico del precio promedio real.
-
-
     """
-    import pandas as pd
-    from sklearn.metrics import r2_score
+    
     import pickle
+    import pandas as pd
+    from sklearn.preprocessing import MinMaxScaler
+    import numpy as np
 
-    df = pd.read_csv('../../data_lake/business/features/precios-diarios.csv', index_col=None)
-    df['Fecha'] = pd.to_datetime(df['Fecha'], format= '%Y-%m-%d')
-    df['year'] = df['Fecha'].dt.year
-    df['month'] = df['Fecha'].dt.month
-    df['day'] = df['Fecha'].dt.day
+    precios_diarios = pd.read_csv('../../data_lake/business/precios-diarios.csv', sep = ',')
 
-    df.dropna(inplace=True)
+    data_d1 = [precios_diarios['Precio'][t] - precios_diarios['Precio'][t - 1] for t in range(1, len(precios_diarios['Precio']))]
+    data_d1d12 = [data_d1[t] - data_d1[t - 12] for t in range(12, len(data_d1))]
+    scaler = MinMaxScaler()
+    data_d1d12_scaled = scaler.fit_transform(np.array(data_d1d12).reshape(-1, 1))
+    data_d1d12_scaled = [u[0] for u in data_d1d12_scaled]
+    P = 13
 
-    x_complete = df.copy().drop(columns = 'Fecha')
-    y_complete = x_complete.pop('Precio')
+    X = []
+    for t in range(P - 1, len(data_d1d12_scaled) - 1):
+        X.append([data_d1d12_scaled[t - n] for n in range(P)])
+        
 
-    regression = pickle.load(open('../models/precios-diarios.pkl', 'rb'))
-    prediction = regression.predict(x_complete)
+    filename = '../models/precios-diarios.pkl'
+    loaded_model = pickle.load(open(filename, 'rb'))
 
-    r2_score(y_complete,regression.predict(x_complete))
+    y_d1d12_scaled_m2 = loaded_model.predict(X)
+    y_d1d12_scaled_m2 = data_d1d12_scaled[0:P] + y_d1d12_scaled_m2.tolist()
 
-    df['Prediction'] = prediction
+    y_d1d12_m2 = scaler.inverse_transform([[u] for u in y_d1d12_scaled_m2])
+    y_d1d12_m2 = [u[0] for u in y_d1d12_m2.tolist()]
 
-    df[['Fecha', 'Precio', 'Prediction']].to_csv(
-        '../../data_lake/business/forecasts/precios-diarios.csv', index=None)
+    y_d1_m2 = [y_d1d12_m2[t] + data_d1[t] for t in range(len(y_d1d12_m2))]
+    y_d1_m2 = data_d1[0:12] + y_d1_m2
 
-    # raise NotImplementedError("Implementar esta función")
+    y_m2 = [y_d1_m2[t] + precios_diarios['Precio'][t] for t in range(len(y_d1_m2))]
+
+    y_m2 = [precios_diarios['Precio'][0]] + y_m2
+
+    precios_diarios['pronostico'] = y_m2
+
+    precios_diarios.to_csv('../../data_lake/business/forescasts/precios-diarios.csv',index = False,  encoding='utf-8')
+
+
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+
     make_forecasts()
