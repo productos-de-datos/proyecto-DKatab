@@ -17,9 +17,9 @@ def compute_daily_prices():
     """
     import pandas as pd
 
-    datos = pd.read_csv('../../data_lake/cleansed/precios-horarios.csv')
+    datos = pd.read_csv('data_lake/cleansed/precios-horarios.csv')
     df = datos.groupby(by="Fecha",as_index=False).agg({"Precio":"mean"})
-    df.to_csv('../../data_lake/business/precios-diarios.csv', encoding='utf-8', index=False)
+    df.to_csv('data_lake/business/precios-diarios.csv', encoding='utf-8', index=False)
 
     #raise NotImplementedError("Implementar esta función")
 

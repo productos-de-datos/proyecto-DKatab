@@ -16,17 +16,17 @@ def transform_data():
 
     for num in range(1995, 2022):
         if num < 2000:
-            data_xls = pd.read_excel('../../data_lake/landing/{}.xlsx'.format(num), index_col=None, header=3)
+            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None, header=3)
         elif num in (2016, 2017):
-            data_xls = pd.read_excel('../../data_lake/landing/{}.xls'.format(num), index_col=None, header=2)
+            data_xls = pd.read_excel('data_lake/landing/{}.xls'.format(num), index_col=None, header=2)
         elif num >= 2018:
-            data_xls = pd.read_excel('../../data_lake/landing/{}.xlsx'.format(num), index_col=None)
+            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None)
         else:
-            data_xls = pd.read_excel('../../data_lake/landing/{}.xlsx'.format(num), index_col=None, header=2)
+            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None, header=2)
         
         data_xls = data_xls.iloc[:,0:25]
 
-        data_xls.to_csv('../../data_lake/raw/{}.csv'.format(num), encoding='utf-8', index=False)
+        data_xls.to_csv('data_lake/raw/{}.csv'.format(num), encoding='utf-8', index=False)
 
  
 

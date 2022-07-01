@@ -12,7 +12,7 @@ def make_forecasts():
     from sklearn.preprocessing import MinMaxScaler
     import numpy as np
 
-    precios_diarios = pd.read_csv('../../data_lake/business/precios-diarios.csv', sep = ',')
+    precios_diarios = pd.read_csv('data_lake/business/precios-diarios.csv', sep = ',')
 
     data_d1 = [precios_diarios['Precio'][t] - precios_diarios['Precio'][t - 1] for t in range(1, len(precios_diarios['Precio']))]
     data_d1d12 = [data_d1[t] - data_d1[t - 12] for t in range(12, len(data_d1))]
@@ -26,7 +26,7 @@ def make_forecasts():
         X.append([data_d1d12_scaled[t - n] for n in range(P)])
         
 
-    filename = '../models/precios-diarios.pkl'
+    filename = 'models/precios-diarios.pkl'
     loaded_model = pickle.load(open(filename, 'rb'))
 
     y_d1d12_scaled_m2 = loaded_model.predict(X)
@@ -44,7 +44,7 @@ def make_forecasts():
 
     precios_diarios['pronostico'] = y_m2
 
-    precios_diarios.to_csv('../../data_lake/business/forecasts/precios-diarios.csv',index = False,  encoding='utf-8')
+    precios_diarios.to_csv('data_lake/business/forecasts/precios-diarios.csv',index = False,  encoding='utf-8')
 
 
     #raise NotImplementedError("Implementar esta función")

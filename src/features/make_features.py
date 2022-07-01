@@ -14,14 +14,14 @@ def make_features():
     """
     import pandas as pd
 
-    df = pd.read_csv('../../data_lake/business/precios-diarios.csv')
+    df = pd.read_csv('data_lake/business/precios-diarios.csv')
     df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d')
     df["Diferencia_precio"] = df["Precio"] - df["Precio"].shift(1)
     df["Dia_semana"] = df["Fecha"].dt.dayofweek
     df["Dia_mes"] = df["Fecha"].dt.day
     df["Precio_ayer"] = df["Precio"].shift(1)
 
-    df.to_csv('../../data_lake/business/features/precios-diarios.csv', encoding='utf-8', index=False)
+    df.to_csv('data_lake/business/features/precios-diarios.csv', encoding='utf-8', index=False)
 
     #raise NotImplementedError("Implementar esta función")
 

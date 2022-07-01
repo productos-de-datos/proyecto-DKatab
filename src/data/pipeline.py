@@ -17,7 +17,7 @@ from luigi import Task, LocalTarget
 
 class IngestarDato(Task):
     def output(self):
-        return LocalTarget('../../data_lake/Importar_dato.txt')
+        return LocalTarget('data_lake/Importar_dato.txt')
 
     def run(self):
         from ingest_data import ingest_data
@@ -30,7 +30,7 @@ class TransformarDato(Task):
         return IngestarDato()
 
     def output(self):
-        return LocalTarget('../../data_lake/Transformar_dato.txt')
+        return LocalTarget('data_lake/Transformar_dato.txt')
 
     def run(self):
         from transform_data import transform_data
@@ -43,7 +43,7 @@ class LimpiarDato(Task):
         return TransformarDato()
 
     def output(self):
-        return LocalTarget('../../data_lake/Limpiar_dato.txt')
+        return LocalTarget('data_lake/Limpiar_dato.txt')
 
     def run(self):
         from clean_data import clean_data
@@ -56,7 +56,7 @@ class ComputarPrecioDiario(Task):
         return LimpiarDato()
 
     def output(self):
-        return LocalTarget('../../data_lake/Computar_Precio_diario.txt')
+        return LocalTarget('data_lake/Computar_Precio_diario.txt')
 
     def run(self):
         from compute_daily_prices import compute_daily_prices
@@ -69,7 +69,7 @@ class ComputarPrecioMensual(Task):
         return ComputarPrecioDiario()
 
     def output(self):
-        return LocalTarget('../../data_lake/Computar_Precio_Mensual.txt')
+        return LocalTarget('data_lake/Computar_Precio_Mensual.txt')
 
     def run(self):
         from compute_monthly_prices import compute_monthly_prices

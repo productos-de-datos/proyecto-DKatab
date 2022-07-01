@@ -13,11 +13,11 @@ def clean_data():
 
     df = pd.DataFrame()
     for file in range(1995,2022):
-        df = pd.concat([df,pd.read_csv('../../data_lake/raw/{}.csv'.format(file))])
+        df = pd.concat([df,pd.read_csv('data_lake/raw/{}.csv'.format(file))])
     
     df_unpivoted = df.melt(id_vars=['Fecha'], var_name='Hora', value_name='Precio')
     
-    df_unpivoted.to_csv('../../data_lake/cleansed/precios-horarios.csv', encoding='utf-8', index=False)
+    df_unpivoted.to_csv('data_lake/cleansed/precios-horarios.csv', encoding='utf-8', index=False)
 
     
 

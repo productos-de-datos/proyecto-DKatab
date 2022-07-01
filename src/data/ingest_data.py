@@ -27,7 +27,7 @@ def ingest_data():
     for contentFile in contents:
         url_descarga = contentFile.download_url
         nombre_archivo = url_descarga.rsplit('/', 1)[1]
-        with open('../../data_lake/landing/' + nombre_archivo, 'wb') as f:
+        with open('data_lake/landing/' + nombre_archivo, 'wb') as f:
             f.write(requests.get(url_descarga).content)
 
     #raise NotImplementedError("Implementar esta función")

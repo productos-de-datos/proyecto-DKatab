@@ -11,7 +11,7 @@ def train_daily_model():
     import matplotlib.pyplot as plt
     import numpy as np
     
-    precios_diarios = pd.read_csv('../../data_lake/business/precios-diarios.csv', sep = ',')
+    precios_diarios = pd.read_csv('data_lake/business/precios-diarios.csv', sep = ',')
 
     scaler = MinMaxScaler()
 
@@ -54,7 +54,7 @@ def train_daily_model():
     # Entrenamiento
     mlp.fit(X[0:9383], data_d1d12_scaled[0:9383]) 
 
-    filename = '../models/precios-diarios.pkl'
+    filename = 'models/precios-diarios.pkl'
     pickle.dump(mlp, open(filename, 'wb'))
 
 
