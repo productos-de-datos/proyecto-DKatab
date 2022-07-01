@@ -9,25 +9,25 @@ def clean_data():
     """
     import pandas as pd
 
-    dfList = list()
+    dfLista = list()
     for year in range(1995, 2022): 
         #Limpiar archivos de 1995 a 2000    
         if year in range(1995, 2000): 
             dato_csv = pd.read_csv('data_lake/raw/{}.csv'.format(year), header=None)
             dato_year = dato_csv.iloc[4:,:]
-            dfList.append(dato_year)
+            dfLista.append(dato_year)
         #Limpiar datos del 2017 y 2018 
         elif year in range(2000, 2018): 
             dato_csv = pd.read_csv('data_lake/raw/{}.csv'.format(year), header=None)
             dato_year = dato_csv.iloc[3:,:]
-            dfList.append(dato_year)
-         #Limpiar archivos CSV de los demas archivos
+            dfLista.append(dato_year)
+         #Limpiar los demas archivos
         elif year in range(2018, 2022):
             dato_csv = pd.read_csv('data_lake/raw/{}.csv'.format(year), header=None)
             dato_year = dato_csv.iloc[3:,:]
-            dfList.append(dato_year)
+            dfLista.append(dato_year)
     
-    df = pd.concat(dfList, ignore_index=True, axis=0)
+    df = pd.concat(dfLista, ignore_index=True, axis=0)
     
     df = df.iloc[:, 0:25]
 
