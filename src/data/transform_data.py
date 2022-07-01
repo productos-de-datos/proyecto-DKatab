@@ -12,30 +12,55 @@ def transform_data():
 
     import pandas as pd
 
-    
-
-    for num in range(1995, 2022):
-        if num < 2000:
-            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None, header=3)
-        elif num in (2016, 2017):
-            data_xls = pd.read_excel('data_lake/landing/{}.xls'.format(num), index_col=None, header=2)
-        elif num >= 2018:
-            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None)
+    for year in range(1995, 2022):
+        if year in range(2016, 2018):
+            busqueda = 'data_lake/landing/{}.xls'.format(year)
+            destino = 'data_lake/raw/{}.csv'.format(year)
+            data_xls = pd.read_excel(busqueda, index_col=None, header=None)
+            data_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
         else:
-            data_xls = pd.read_excel('data_lake/landing/{}.xlsx'.format(num), index_col=None, header=2)
-        
-        data_xls = data_xls.iloc[:,0:25]
+            busqueda = 'data_lake/landing/{}.xlsx'.format(year)
+            destino = 'data_lake/raw/{}.csv'.format(year)
+            data_xls = pd.read_excel(busqueda, index_col=None, header=None)
+            data_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
 
-        data_xls.to_csv('data_lake/raw/{}.csv'.format(num), encoding='utf-8', index=False)
-
- 
-
+    
     #raise NotImplementedError("Implementar esta función")
 
+    def test_answer():
+        import os
+            
+        assert os.path.isfile("data_lake/raw/1995.csv") is True
+        assert os.path.isfile("data_lake/raw/1996.csv") is True
+        assert os.path.isfile("data_lake/raw/1997.csv") is True
+        assert os.path.isfile("data_lake/raw/1998.csv") is True
+        assert os.path.isfile("data_lake/raw/1999.csv") is True
+        assert os.path.isfile("data_lake/raw/2000.csv") is True
+        assert os.path.isfile("data_lake/raw/2001.csv") is True
+        assert os.path.isfile("data_lake/raw/2002.csv") is True
+        assert os.path.isfile("data_lake/raw/2003.csv") is True
+        assert os.path.isfile("data_lake/raw/2004.csv") is True
+        assert os.path.isfile("data_lake/raw/2005.csv") is True
+        assert os.path.isfile("data_lake/raw/2006.csv") is True
+        assert os.path.isfile("data_lake/raw/2007.csv") is True
+        assert os.path.isfile("data_lake/raw/2008.csv") is True
+        assert os.path.isfile("data_lake/raw/2009.csv") is True
+        assert os.path.isfile("data_lake/raw/2010.csv") is True
+        assert os.path.isfile("data_lake/raw/2011.csv") is True
+        assert os.path.isfile("data_lake/raw/2012.csv") is True
+        assert os.path.isfile("data_lake/raw/2013.csv") is True
+        assert os.path.isfile("data_lake/raw/2014.csv") is True
+        assert os.path.isfile("data_lake/raw/2015.csv") is True
+        assert os.path.isfile("data_lake/raw/2016.csv") is True
+        assert os.path.isfile("data_lake/raw/2017.csv") is True
+        assert os.path.isfile("data_lake/raw/2018.csv") is True
+        assert os.path.isfile("data_lake/raw/2019.csv") is True
+        assert os.path.isfile("data_lake/raw/2020.csv") is True
+        assert os.path.isfile("data_lake/raw/2021.csv") is True
 
-if __name__ == "__main__":
-    import doctest
+    if __name__ == "__main__":
+        import doctest
 
     doctest.testmod()
-    
+
     transform_data()
