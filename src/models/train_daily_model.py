@@ -54,7 +54,7 @@ def train_daily_model():
     # Entrenamiento
     mlp.fit(X[0:9383], data_d1d12_scaled[0:9383]) 
 
-    filename = 'src/models/precios-diarios.pickle'
+    filename = 'src/models/precios-diarios.pkl'
     pickle.dump(mlp, open(filename, 'wb'))
 
 
