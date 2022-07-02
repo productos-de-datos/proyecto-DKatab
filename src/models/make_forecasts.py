@@ -14,7 +14,7 @@ def make_forecasts():
 
     precios_diarios = pd.read_csv('data_lake/business/precios-diarios.csv', sep = ',')
 
-    data_d1 = [precios_diarios['Precio'][t] - precios_diarios['Precio'][t - 1] for t in range(1, len(precios_diarios['Precio']))]
+    data_d1 = [precios_diarios['precio'][t] - precios_diarios['precio'][t - 1] for t in range(1, len(precios_diarios['precio']))]
     data_d1d12 = [data_d1[t] - data_d1[t - 12] for t in range(12, len(data_d1))]
     scaler = MinMaxScaler()
     data_d1d12_scaled = scaler.fit_transform(np.array(data_d1d12).reshape(-1, 1))
@@ -26,7 +26,7 @@ def make_forecasts():
         X.append([data_d1d12_scaled[t - n] for n in range(P)])
         
 
-    filename = 'models/precios-diarios.pkl'
+    filename = 'src/models/precios-diarios.pkl'
     loaded_model = pickle.load(open(filename, 'rb'))
 
     y_d1d12_scaled_m2 = loaded_model.predict(X)
@@ -38,9 +38,9 @@ def make_forecasts():
     y_d1_m2 = [y_d1d12_m2[t] + data_d1[t] for t in range(len(y_d1d12_m2))]
     y_d1_m2 = data_d1[0:12] + y_d1_m2
 
-    y_m2 = [y_d1_m2[t] + precios_diarios['Precio'][t] for t in range(len(y_d1_m2))]
+    y_m2 = [y_d1_m2[t] + precios_diarios['precio'][t] for t in range(len(y_d1_m2))]
 
-    y_m2 = [precios_diarios['Precio'][0]] + y_m2
+    y_m2 = [precios_diarios['precio'][0]] + y_m2
 
     precios_diarios['pronostico'] = y_m2
 
