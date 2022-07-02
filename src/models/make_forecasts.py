@@ -26,7 +26,7 @@ def make_forecasts():
         X.append([data_d1d12_scaled[t - n] for n in range(P)])
         
 
-    filename = 'models/precios-diarios.pkl'
+    filename = 'src/models/precios-diarios.pkl'
     loaded_model = pickle.load(open(filename, 'rb'))
 
     y_d1d12_scaled_m2 = loaded_model.predict(X)
