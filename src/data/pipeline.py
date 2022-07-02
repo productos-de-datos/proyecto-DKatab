@@ -15,74 +15,81 @@ Se implemente Luigi como orquestador de las tareas previamente definidas.
 import luigi
 from luigi import Task, LocalTarget
 
-class IngestarDato(Task):
+
+class ingestar_data(Task):
     def output(self):
-        return LocalTarget('data_lake/Importar_dato.txt')
+        return LocalTarget('data_lake/landing/arc.csv')
 
     def run(self):
+
         from ingest_data import ingest_data
         with self.output().open('w') as archivos:
             ingest_data()
 
 
-class TransformarDato(Task):
+class transformar_data(Task):
     def requires(self):
-        return IngestarDato()
+        return ingestar_data()
 
     def output(self):
-        return LocalTarget('data_lake/Transformar_dato.txt')
+        return LocalTarget('data_lake/raw/arc.txt')
 
     def run(self):
+
         from transform_data import transform_data
         with self.output().open('w') as archivos:
             transform_data()
 
 
-class LimpiarDato(Task):
+class limpiar_data(Task):
     def requires(self):
-        return TransformarDato()
+        return transformar_data()
 
     def output(self):
-        return LocalTarget('data_lake/Limpiar_dato.txt')
+        return LocalTarget('data_lake/cleansed/arc.txt')
 
     def run(self):
+
         from clean_data import clean_data
         with self.output().open('w') as archivos:
             clean_data()
 
 
-class ComputarPrecioDiario(Task):
+class computar_precio_diario(Task):
     def requires(self):
-        return LimpiarDato()
+        return limpiar_data()
 
     def output(self):
-        return LocalTarget('data_lake/Computar_Precio_diario.txt')
+        return LocalTarget('data_lake/business/arc.txt')
 
     def run(self):
+
         from compute_daily_prices import compute_daily_prices
         with self.output().open('w') as archivos:
             compute_daily_prices()
 
 
-class ComputarPrecioMensual(Task):
+class computar_precio_mensual(Task):
     def requires(self):
-        return ComputarPrecioDiario()
+        return computar_precio_diario()
 
     def output(self):
-        return LocalTarget('data_lake/Computar_Precio_Mensual.txt')
+        return LocalTarget('data_lake/business/arc.txt')
 
     def run(self):
+
         from compute_monthly_prices import compute_monthly_prices
         with self.output().open('w') as archivos:
             compute_monthly_prices()
 
-if __name__ == "__main__":
 
-    luigi.run(["ComputarPrecioMensual", "--local-scheduler"])
-    
-    #raise NotImplementedError("Implementar esta función")
+if __name__ == '__main__':
+    try:
 
-if __name__ == "__main__":
-    import doctest
+        import doctest
+        doctest.testmod()
 
-    doctest.testmod()
+        luigi.run(["computar_precio_mensual", "--local-scheduler"])
+
+    except:
+        raise NotImplementedError("Implementar el orquestador de luigi")
