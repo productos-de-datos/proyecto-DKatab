@@ -1,6 +1,3 @@
-from sqlalchemy import false
-
-
 def compute_daily_prices():
     """Compute los precios promedios diarios.
 
