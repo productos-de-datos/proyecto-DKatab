@@ -18,8 +18,8 @@ def compute_monthly_prices():
     import pandas as pd
 
     datos = pd.read_csv('data_lake/cleansed/precios-horarios.csv')
-    datos["Fecha"] = pd.to_datetime(datos["Fecha"], format='%Y-%m-%d').dt.to_period("M").dt.to_timestamp()
-    df = datos.groupby(by="Fecha",as_index=False).agg({"Precio":"mean"})
+    datos["fecha"] = pd.to_datetime(datos["fecha"], format='%Y-%m-%d').dt.to_period("M").dt.to_timestamp()
+    df = datos.groupby(by="fecha",as_index=False).agg({"precio":"mean"})
     df.to_csv('data_lake/business/precios-mensuales.csv', encoding='utf-8', index=False)
 
     #raise NotImplementedError("Implementar esta función")

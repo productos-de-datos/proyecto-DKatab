@@ -1,6 +1,3 @@
-from sqlalchemy import column
-
-
 def transform_data():
     """Transforme los archivos xls a csv.
     Transforme los archivos data_lake/landing/*.xls a data_lake/raw/*.csv. Hay
@@ -16,20 +13,20 @@ def transform_data():
         if year in range(2016, 2018):
             busqueda = 'data_lake/landing/{}.xls'.format(year)
             destino = 'data_lake/raw/{}.csv'.format(year)
-            data_xls = pd.read_excel(busqueda, index_col=None, header=None)
-            data_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
+            datos_xls = pd.read_excel(busqueda, index_col=None, header=None)
+            datos_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
         else:
             busqueda = 'data_lake/landing/{}.xlsx'.format(year)
             destino = 'data_lake/raw/{}.csv'.format(year)
-            data_xls = pd.read_excel(busqueda, index_col=None, header=None)
-            data_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
+            datos_xls = pd.read_excel(busqueda, index_col=None, header=None)
+            datos_xls.to_csv(destino, encoding='utf-8', index=False, header=False)
 
     
     #raise NotImplementedError("Implementar esta función")
 
     def test_answer():
         import os
-            
+
         assert os.path.isfile("data_lake/raw/1995.csv") is True
         assert os.path.isfile("data_lake/raw/1996.csv") is True
         assert os.path.isfile("data_lake/raw/1997.csv") is True
@@ -58,9 +55,7 @@ def transform_data():
         assert os.path.isfile("data_lake/raw/2020.csv") is True
         assert os.path.isfile("data_lake/raw/2021.csv") is True
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
         import doctest
-
-    doctest.testmod()
-
-    transform_data()
+        doctest.testmod()
+        transform_data()

@@ -13,15 +13,14 @@ def make_features():
 
     """
     import pandas as pd
+    
+    precios_diarios = pd.read_csv('data_lake/business/precios-diarios.csv')
+    precios_diarios['Variable_Dependiente'] = 0
+    for i in range(9393,9409):
+        precios_diarios.iloc[i,2] = precios_diarios.iloc[i,1]
+        precios_diarios.iloc[i,1] = 0
 
-    df = pd.read_csv('data_lake/business/precios-diarios.csv')
-    df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d')
-    df["Diferencia_precio"] = df["Precio"] - df["Precio"].shift(1)
-    df["Dia_semana"] = df["Fecha"].dt.dayofweek
-    df["Dia_mes"] = df["Fecha"].dt.day
-    df["Precio_ayer"] = df["Precio"].shift(1)
-
-    df.to_csv('data_lake/business/features/precios-diarios.csv', encoding='utf-8', index=False)
+    precios_diarios.to_csv('data_lake/business/features/precios_diarios.csv', index = False, encoding='utf-8')
 
     #raise NotImplementedError("Implementar esta función")
 

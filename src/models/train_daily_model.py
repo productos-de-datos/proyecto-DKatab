@@ -16,13 +16,13 @@ def train_daily_model():
     scaler = MinMaxScaler()
 
     # escala la serie
-    data_scaled = scaler.fit_transform(np.array(precios_diarios['Precio']).reshape(-1, 1))
+    data_scaled = scaler.fit_transform(np.array(precios_diarios['precio']).reshape(-1, 1))
 
     # z es un array de listas como efecto
     # del escalamiento
     data_scaled = [u[0] for u in data_scaled]
 
-    data_d1 = [precios_diarios['Precio'][t] - precios_diarios['Precio'][t - 1] for t in range(1, len(precios_diarios['Precio']))]
+    data_d1 = [precios_diarios['precio'][t] - precios_diarios['precio'][t - 1] for t in range(1, len(precios_diarios['precio']))]
 
     data_d1d12 = [data_d1[t] - data_d1[t - 12] for t in range(12, len(data_d1))]
 
@@ -65,4 +65,6 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+
     train_daily_model()
+

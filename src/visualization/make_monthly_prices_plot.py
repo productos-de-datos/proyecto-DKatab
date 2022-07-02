@@ -11,7 +11,7 @@ def make_monthly_prices_plot():
     import pandas as pd
     
     df = pd.read_csv('data_lake/business/precios-mensuales.csv')
-    plot = df.plot(x='Fecha', y = 'Precio', kind = 'line').get_figure()
+    plot = df.plot(x='fecha', y = 'precio', kind = 'line').get_figure()
     plot.savefig('data_lake/business/reports/figures/monthly_prices.png')
 
     
