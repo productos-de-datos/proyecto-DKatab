@@ -3,6 +3,7 @@
 .PHONY: transform_data
 .PHONY: clean_data
 .PHONY: compute_daily_prices
+.PHONY: compute_monthly_prices
 .PHONY: pipeline
 .PHONY: make_daily_prices_plot
 .PHONY: make_monthly_prices_plot

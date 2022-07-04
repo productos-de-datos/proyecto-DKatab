@@ -1,54 +1,46 @@
-def create_data_lake():
-    """Cree el data lake con sus capas.
-
-    Esta función debe crear la carpeta `data_lake` en la raiz del proyecto. El data lake contiene
-    las siguientes subcarpetas:
-
-    ```
-    .
-    |
-    \___ data_lake/
-         |___ landing/
-         |___ raw/
-         |___ cleansed/
-         \___ business/
-              |___ reports/
-              |    |___ figures/
-              |___ features/
-              |___ forecasts/
-
-    ```
-
-    """
-    # Se crea el data lake con la siguiente estructura en la raíz del proyecto :
-    #   \___ data_lake/
-    #    |___ landing/
-    #    |___ raw/
-    #    |___ cleansed/
-    #    \___ business/
-    #         |___ reports/
-    #         |    |___ figures/
-    #         |___ features/
-    #         |___ forecasts/
-
-    from os import mkdir
-
-    mkdir("data_lake")
-    mkdir("data_lake/landing")
-    mkdir("data_lake/raw")
-    mkdir("data_lake/cleansed")
-    mkdir("data_lake/business")
-    mkdir("data_lake/business/reports")
-    mkdir("data_lake/business/reports/figures")
-    mkdir("data_lake/business/features")
-    mkdir("data_lake/business/forecasts")
-
-    #raise NotImplementedError("Implementar esta función")
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod()
-
-    create_data_lake()
+""" 
+Módulo de creación Data Lake. 
+------------------------------------------------------------------------------- 
+Se crea un Data Lake con sus carpetas y subcarpetas: 
+ 
+     
+    . 
+    | 
+    \___ data_lake/ 
+         |_ landing/ 
+         |_ raw/ 
+         |_ cleansed/ 
+         \___ business/ 
+              |_ reports/ 
+              |    |_ figures/ 
+              |_ features/ 
+              |_ forecasts/ 
+ 
+     
+ 
+""" 
+import os 
+ 
+ 
+def create_data_lake(): 
+    try: 
+        os.mkdir('./data_lake/') 
+        parent_dir = 'data_lake/' 
+        carpetas = ['landing', 'raw', 'cleansed', 'business'] 
+        [os.mkdir(os.path.join(parent_dir, c)) for c in carpetas] 
+        parent_dir = 'data_lake/business/' 
+        carpetas = ['reports', 'features', 'forecasts'] 
+        [os.mkdir(os.path.join(parent_dir, c)) for c in carpetas] 
+        parent_dir = 'data_lake/business/reports/' 
+        directory = 'figures' 
+        os.mkdir(os.path.join(parent_dir, directory)) 
+    except: 
+        raise NotImplementedError("Implementar esta función") 
+ 
+ 
+if __name__ == "__main__": 
+ 
+    import doctest 
+ 
+    doctest.testmod() 
+create_data_lake()
