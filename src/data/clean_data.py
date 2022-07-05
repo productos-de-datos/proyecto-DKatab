@@ -7,6 +7,10 @@ def clean_data():
     * precio: precio de la electricidad en la bolsa nacional
     Este archivo contiene toda la información del 1997 a 2021.
     """
+    ## A continuación se realiza la limpieza de los datos de los archivos que se encuentran en 
+    ## data_lake/raw/*.csv con el fin que todos estos archivos contengan las columnas fecha, hora, precio para 
+    ## los años de 1997 al 2021
+
     import pandas as pd
 
     dfLista = list()

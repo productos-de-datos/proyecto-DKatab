@@ -15,6 +15,9 @@ def compute_monthly_prices():
 
 
     """
+    ## A continuación se realiza el calculo de los precios promedios mensuales utilizando la data que se 
+    ## encuentra en data_lake/cleansed/precios-horarios.csv
+
     import pandas as pd
 
     datos = pd.read_csv('data_lake/cleansed/precios-horarios.csv')

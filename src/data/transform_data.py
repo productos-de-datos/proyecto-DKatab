@@ -5,7 +5,9 @@ def transform_data():
     tiene como columnas la fecha en formato YYYY-MM-DD y las horas H00, ...,
     H23.
     """
-   #La siguiente función permite transformar la data depositada en la carpeta landig a csv
+    ##Con la siguiente función se pretende realizar la transformación de los
+    ##archivos xls que se encuentran en la capa landing data_lake/business/landing para luego convertir a 
+    ##archivos de texto plano csv, estos deben ser guardados en data_lake/raw/*.csv
 
     import pandas as pd
 

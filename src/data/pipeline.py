@@ -11,6 +11,8 @@ En luigi llame las funciones que ya creo.
 """
 Se implemente Luigi como orquestador de las tareas previamente definidas.
 """
+## Con las siguientes funciones se pretende realizar un proceso barch mediante
+## pipeline de luigi para las tareas anteriormente descritas
 
 import luigi
 from luigi import Task, LocalTarget

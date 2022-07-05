@@ -12,6 +12,12 @@ def make_features():
     analizar y determinar las variables explicativas del modelo.
 
     """
+    ## A continuación se crea el archivo precios-diarios.csv el cual es almacenado en 
+    # data_lake/business/features/precios-diarios.csv. Este archivo continue las variables explicativas 
+    # del modelo con las cuales se pronosticarán los precios diarios de la electricidad 
+    # teniendo en cuenta el histórico de precios. La explicación del modelo se encuentra almacenado en 
+    # notebooks/Analisis.ipnyb
+
     import pandas as pd
     
     precios_diarios = pd.read_csv('data_lake/business/precios-diarios.csv')

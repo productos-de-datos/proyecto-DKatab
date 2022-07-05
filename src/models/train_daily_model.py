@@ -3,6 +3,8 @@ def train_daily_model():
     Con las features entrene el modelo de proóstico de precios diarios y
     salvelo en models/precios-diarios.pkl
     """
+    ##Utilizando los archivos que se encuentran en data_lake/business/precios-diarios.csv se construye
+    ## un modelo de pronóstico de precios diarios la cual es almacenada en models/precios-diarios.pkl
 
     import pickle
     from sklearn.neural_network import MLPRegressor

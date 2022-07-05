@@ -12,6 +12,9 @@ def compute_daily_prices():
 
 
     """
+     ## A continuación se realiza el calculo de los precios promedios diarios utilizando la data que se 
+    ## encuentra en data_lake/cleansed/precios-horarios.csv
+
     import pandas as pd
 
     datos = pd.read_csv('data_lake/cleansed/precios-horarios.csv')

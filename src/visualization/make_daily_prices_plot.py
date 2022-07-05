@@ -7,6 +7,9 @@ def make_daily_prices_plot():
     El archivo se debe salvar en formato PNG en data_lake/business/reports/figures/daily_prices.png.
 
     """
+    # A continuación se construye un gráfico de lineas para representar los precios promedios diarios, este
+    # se almacenará en data_lake/business/reports/figures/daily_prices.png.
+    
     import matplotlib.pyplot as plt
     import pandas as pd
     
